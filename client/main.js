@@ -6,13 +6,8 @@ Template.form_new_note.events({
      const titleVal = event.target.title.value;
      const textVal = event.target.text.value;
 
+    Meteor.call('insertNote', titleVal, textVal);
 
-     Notes.insert({
-        title: titleVal,
-        text: textVal,
-        createdAt: new Date(),
-        ownerId: Meteor.userId()
-     });
      event.target.title.value = "";
      event.target.text.value = "";
   } 
@@ -43,7 +38,7 @@ Template.modal_edit_note.events({
     Modal.hide();
   }, 
   "click .js-delete-note" (event, instance) {
-  Notes.remove({_id: instance.data.note._id});
+  Meteor.call('removeNote', instance.data.note._id);
   Modal.hide();
   }
 }); 
