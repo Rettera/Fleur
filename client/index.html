@@ -1,0 +1,81 @@
+<head>
+  <title>Fleur</title>
+</head>
+
+<body>
+<div class="container">
+  <h1 class="text-center">Application note</h1>
+{{#if currentUser}}
+{{> accueil}}
+{{else}}
+{{> atForm}}
+{{/if}}
+</div>
+
+</body>
+
+<template name="accueil">
+  
+  <button type="button" class="btn btn-xs btn-primary js-logout">Logout</button>
+  
+  <!-- Formulaire Note -->
+  {{> form_new_note }}
+  <!-- Liste des notes-->
+  {{> list_note}}
+</template>
+
+<template name="form_new_note">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="js-new-note">
+            <input class="form-control" type="text" name="title" placeholder="titre de la note">
+            <textarea class="form-control resize-vertical" name="text" cols="80" rows="8"></textarea>
+            <button class="btn btn-primary" type="submit">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="list_note">
+  <h1>Notes a afficher</h1>
+  {{#each note in notes}}
+    {{> single_note note=note}}
+    {{else}}
+    <h3>Aucune note a afficher</h3>
+  {{/each}}
+</template>
+<template name="single_note">
+  
+  <div class="panel panel-default js-edit-note" style="cursor:pointer;">
+    <div class="panel-heading">
+        <h4 class="panel-title">{{note.title}}</h4>
+    </div>
+    <div class="panel-body">
+       <p style="white-space:pre"> {{note.text}}</p>
+    </div>
+  </div>
+
+</template>
+<template name="modal_edit_note">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <form class="js-edit-note">
+                <input class="form-control" value="{{note.title}}" type="text" name="title" placeholder="titre de la note">
+                <textarea class="form-control resize-vertical" name="text" cols="80" rows="8">{{note.text}}</textarea>
+                <button class="btn btn-primary" type="submit">Sauvegarder</button>
+                <button type="button" class="btn btn-danger js-delete-note">supprimer</button>
+              </form>
+              <div class="text-right"><button class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close" aria-hidden="true"></i>close
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

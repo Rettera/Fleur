@@ -1,0 +1,11 @@
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+.resize-vertical{
+  resize: vertical;
+}
+
+.form-control{
+  margin-bottom: 5px;
+}
